@@ -152,3 +152,7 @@ media/
 build_tests/
 yap_testing
 html/img/img/
+
+# папки с шаблонами и не нужные для git
+html/
+blogicum/static/css/bootstrap.min.css
