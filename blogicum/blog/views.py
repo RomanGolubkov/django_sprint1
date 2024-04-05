@@ -1,5 +1,6 @@
+from django.http import Http404
 from django.shortcuts import render
-from django.http import Http404, HttpResponseNotFound, HttpResponse
+
 
 posts = [
     {
@@ -50,24 +51,12 @@ def index(request):
 
 
 def post_detail(request, post_id):
-    if post_id > 2:
-        raise Http404()
-    return render(
-        request, 'blog/detail.html', context={'post': posts[post_id]}
-    )
+    for post in posts:
+        if post['id'] == post_id:
+            return render(request, 'blog/detail.html', context={'post': post})   
+    raise Http404()
 
 
 def category_posts(request, category_slug):
-    if not category_slug:
-        raise Http404()
-    return render(
-        request, 'blog/category.html', context={'category': category_slug}
-    )
-
-
-def handler404(request, exception):
-    return HttpResponseNotFound("<h1>Страница не найдена: 404</h1>")
-
-
-def handler500(request):
-    return HttpResponse("<h1>Ошибка сервера: 500</h1>")
+    return render(request, 'blog/category.html',
+                  context={'category': category_slug})
