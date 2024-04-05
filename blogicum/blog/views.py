@@ -53,7 +53,7 @@ def index(request):
 def post_detail(request, post_id):
     for post in posts:
         if post['id'] == post_id:
-            return render(request, 'blog/detail.html', context={'post': post})   
+            return render(request, 'blog/detail.html', context={'post': post})
     raise Http404()
 
 
