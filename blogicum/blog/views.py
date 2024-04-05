@@ -45,16 +45,28 @@ posts = [
     },
 ]
 
+data = {
+    'post_0': posts[0],
+    'post_1': posts[1],
+    'post_2': posts[2],
+}
+
 
 def index(request):
     return render(request, 'blog/index.html', context={'posts': posts[::-1]})
 
 
 def post_detail(request, post_id):
-    for post in posts:
-        if post['id'] == post_id:
-            return render(request, 'blog/detail.html', context={'post': post})
-    raise Http404()
+    if data['post_0']['id'] == post_id:
+        return render(request, 'blog/detail.html',
+                      context={'post': posts[post_id]})
+    elif data['post_1']['id'] == post_id:
+        return render(request, 'blog/detail.html',
+                      context={'post': posts[post_id]})
+    elif data['post_2']['id'] == post_id:
+        return render(request, 'blog/detail.html',
+                      context={'post': posts[post_id]})
+    raise Http404(f"Пост с данным id: {post_id} не найден")
 
 
 def category_posts(request, category_slug):
