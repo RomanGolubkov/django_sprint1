@@ -45,11 +45,7 @@ posts = [
     },
 ]
 
-data = {
-    'post_0': posts[0],
-    'post_1': posts[1],
-    'post_2': posts[2],
-}
+posts_id = {post['id']: post for post in posts}
 
 
 def index(request):
@@ -57,15 +53,9 @@ def index(request):
 
 
 def post_detail(request, post_id):
-    if data['post_0']['id'] == post_id:
+    if post_id in posts_id:
         return render(request, 'blog/detail.html',
-                      context={'post': posts[post_id]})
-    elif data['post_1']['id'] == post_id:
-        return render(request, 'blog/detail.html',
-                      context={'post': posts[post_id]})
-    elif data['post_2']['id'] == post_id:
-        return render(request, 'blog/detail.html',
-                      context={'post': posts[post_id]})
+                      context={'post': posts_id[post_id]})
     raise Http404(f"Пост с данным id: {post_id} не найден")
 
 
